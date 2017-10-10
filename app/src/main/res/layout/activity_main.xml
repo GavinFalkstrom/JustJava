@@ -41,7 +41,8 @@
         android:layout_height="48dp"
         android:text="-"
         android:onClick="decrement"
-        android:id="@+id/mius" />
+        android:id="@+id/subtract" />
+
 
 
 
