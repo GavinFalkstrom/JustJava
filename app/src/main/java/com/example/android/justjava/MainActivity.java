@@ -1,9 +1,8 @@
 /**
  * IMPORTANT: Add your package below. Package name can be found in the project's AndroidManifest.xml file.
  * This is the package name our example uses:
- *
+ * <p>
  * package com.example.android.justjava;
- *
  */
 
 
@@ -11,6 +10,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.android.justjava.R;
+
+import java.text.NumberFormat;
 
 /**
  * This app displays an order form to order coffee.
@@ -48,8 +51,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is called when the order button is clicked.
      */
-    public void submitOrder(View view) {;
-        displayPrice(quantity*5);
+    public void submitOrder(View view) {
+        int price = quantity * 5;
+        String priceMessage = "Total: $" + price;
+        priceMessage = priceMessage + "Thank you!";
+        displayMessage(priceMessage);
     }
 
     /**
@@ -66,5 +72,10 @@ public class MainActivity extends AppCompatActivity {
     private void displayPrice(int number) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    }
+
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
     }
 }
