@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    tools:context="com.example.android.justjava.MainActivity">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -19,13 +26,21 @@
         android:textAllCaps="true"
          />
 
-    <CheckBox android:id="@+id/checkbox_meat"
+    <CheckBox
+        android:id="@+id/whipped_cream_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="whipped cream"
         android:paddingLeft="24dp"
+        android:text="Whipped cream"
+        android:textSize="16sp" />
 
-        />
+    <CheckBox
+        android:id="@+id/chocolate_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:text="Chocolate"
+        android:textSize="16sp" />
 
 
     <TextView
@@ -94,4 +109,5 @@
         android:text="order" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
