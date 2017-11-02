@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the plus button is clicked.
      */
     public void increment(View view) {
+        if (quantity == 100) {
+            return;
+
+        }
+
         quantity = quantity + 1;
         displayQuantity(quantity);
     }
@@ -36,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
+        if (quantity == 1) {
+            return;
+        }
+
         quantity = quantity - 1;
         displayQuantity(quantity);
     }
@@ -44,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        EditText nameField = (EditText) findViewById(R.id.name_field) ;
+        EditText nameField = (EditText) findViewById(R.id.name_field);
         // Figure out if the user wants whipped cream topping
         CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         String name = nameField.getText().toString();
@@ -55,12 +66,23 @@ public class MainActivity extends AppCompatActivity {
         boolean hasChocolate = chocolateCheckBox.isChecked();
 
         // Calculate the price
-        int price = calculatePrice();
+        int price = calculatePrice(hasWhippedCream,hasChocolate);
 
         // Display the order summary on the screen
-        String message = createOrderSummary(name,price, hasWhippedCream, hasChocolate);
-        displayMessage(message);
+        String priceMessage = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java orderfor" + name);
+        intent.putExtra(Intent.EXTRA_TEXT, "Just Java orderfor" + name);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+
+//        displayMessage(message);
     }
+
 
     /**
      * Calculates the price of the order.
@@ -89,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
      * @param addChocolate    is whether or not to add chocolate to the coffee
      * @return text summary
      */
-    private String createOrderSummary(String name,int price, boolean addWhippedCream, boolean addChocolate) {
+    private String createOrderSummary(String name, int price, boolean addWhippedCream, boolean addChocolate) {
         String priceMessage = "Name:" + name;
         priceMessage += "\nAdd whipped cream? " + addWhippedCream;
         priceMessage += "\nAdd chocolate? " + addChocolate;
@@ -111,9 +133,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given text on the screen.
      */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-    }
-
+//    private void displayMessage(String message) {
+//        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+//        orderSummaryTextView.setText(message);
+//    }
+//
+//
 }
