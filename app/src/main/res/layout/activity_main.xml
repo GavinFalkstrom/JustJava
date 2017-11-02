@@ -19,11 +19,12 @@
     tools:context="com.example.android.justjava.MainActivity">
 
     <EditText
-        android:id="@+id/album_description_view"
+        android:id="@+id/name_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
-        android:inputType="textMultiLine"/>
+        android:inputType="textCapWords"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

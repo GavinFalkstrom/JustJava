@@ -4,7 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import static android.R.attr.id;
+import static android.R.attr.name;
+import static android.R.id.edit;
 
 /**
  * This app displays an order form to order coffee.
@@ -39,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        EditText nameField = (EditText) findViewById(R.id.name_field) ;
         // Figure out if the user wants whipped cream topping
         CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        String name = nameField.getText().toString();
         boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
 
         // Figure out if the user wants whipped cream topping
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         int price = calculatePrice();
 
         // Display the order summary on the screen
-        String message = createOrderSummary(price, hasWhippedCream, hasChocolate);
+        String message = createOrderSummary(name,price, hasWhippedCream, hasChocolate);
         displayMessage(message);
     }
 
@@ -60,8 +67,18 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return total price
      */
-    private int calculatePrice() {
-        return quantity * 5;
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
+        int basePrice = 5;
+
+        if (addWhippedCream) {
+            basePrice = basePrice + 1;
+        }
+
+        if (addChocolate) {
+            basePrice = basePrice + 2;
+        }
+
+        return quantity * basePrice;
     }
 
     /**
@@ -72,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
      * @param addChocolate    is whether or not to add chocolate to the coffee
      * @return text summary
      */
-    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate) {
-        String priceMessage = "Name: Lyla the Labyrinth";
+    private String createOrderSummary(String name,int price, boolean addWhippedCream, boolean addChocolate) {
+        String priceMessage = "Name:" + name;
         priceMessage += "\nAdd whipped cream? " + addWhippedCream;
         priceMessage += "\nAdd chocolate? " + addChocolate;
         priceMessage += "\nQuantity: " + quantity;
